@@ -17,7 +17,10 @@ export const getReuniao = async (reuniaoId: string) => {
   return await response.data;
 };
 
-export const updateReuniao = async (reuniaoId: string, updatedData: any) => {
+export const updateReuniao = async (
+  reuniaoId: string,
+  updatedData: ReuniaoData
+) => {
   const response = await api.patch(`/reuniao/${reuniaoId}`, updatedData);
   return await response.data;
 };

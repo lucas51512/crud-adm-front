@@ -69,16 +69,6 @@ export default function CardConsulta({
     }
   };
 
-  const controladorDeMudancas =
-    (campo: keyof typeof updateParticipanteData) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const { value } = event.target;
-      setUpdateParticipanteData((estadoAnterior) => ({
-        ...estadoAnterior,
-        [campo]: value,
-      }));
-    };
-
   return (
     <Flex>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -96,7 +86,12 @@ export default function CardConsulta({
                     type="text"
                     defaultValue={participante.nomeParticipante}
                     placeholder="Assunto da Reunião"
-                    onChange={controladorDeMudancas("nomeParticipante")}
+                    onChange={(event) => {
+                      setUpdateParticipanteData({
+                        ...updateParticipanteData,
+                        nomeParticipante: event.target.value,
+                      });
+                    }}
                   />
                   <FormLabel>Email do Participante</FormLabel>
                   <Input
@@ -104,7 +99,12 @@ export default function CardConsulta({
                     type="email"
                     defaultValue={participante.emailParticipante}
                     placeholder="Descrição da Reunião"
-                    onChange={controladorDeMudancas("emailParticipante")}
+                    onChange={(event) => {
+                      setUpdateParticipanteData({
+                        ...updateParticipanteData,
+                        emailParticipante: event.target.value,
+                      });
+                    }}
                   />
                   <FormLabel>Telefone do Participante</FormLabel>
                   <Input
@@ -112,7 +112,12 @@ export default function CardConsulta({
                     type="tel"
                     defaultValue={participante.telefoneParticipante}
                     placeholder="Data da Reunião"
-                    onChange={controladorDeMudancas("telefoneParticipante")}
+                    onChange={(event) => {
+                      setUpdateParticipanteData({
+                        ...updateParticipanteData,
+                        telefoneParticipante: event.target.value,
+                      });
+                    }}
                   />
                 </FormControl>
               </Flex>

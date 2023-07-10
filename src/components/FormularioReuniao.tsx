@@ -24,7 +24,7 @@ export default function FormularioReuniao() {
     descricaoReuniao: "",
     inicioReuniao: "",
     fimReuniao: "",
-    listaParticipantesObjetos: [],
+    listaParticipantes: [],
   });
   const [participanteSelecionado, setParticipanteSelecionado] = useState<
     ParticipanteData[]
@@ -112,7 +112,7 @@ export default function FormularioReuniao() {
       }
       setReuniao({
         ...reuniao,
-        listaParticipantesObjetos: novoParticipante.map((participante) => {
+        listaParticipantes: novoParticipante.map((participante) => {
           return participante;
         }),
       });

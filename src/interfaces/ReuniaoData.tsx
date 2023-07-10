@@ -1,3 +1,4 @@
+import { LocalData } from "./LocalData";
 import { ParticipanteData } from "./ParticipanteData";
 
 export interface ReuniaoData {
@@ -6,5 +7,6 @@ export interface ReuniaoData {
   descricaoReuniao: string;
   inicioReuniao?: null | string;
   fimReuniao?: null | string;
-  listaParticipantesObjetos: ParticipanteData[];
+  listaParticipantes: ParticipanteData[];
+  localReuniao?: LocalData;
 }

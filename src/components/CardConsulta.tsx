@@ -14,8 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { ReuniaoData } from "../interfaces/ReuniaoData";
-import { getReuniao, updateReuniao } from "../services/reuniaoService";
-import { useParams } from "react-router";
+import { updateReuniao } from "../services/reuniaoService";
 import { imprimeDataInput } from "../helpers/funcoes";
 
 interface CardConsutaProps {
@@ -33,34 +32,33 @@ export default function CardConsulta({
 }: CardConsutaProps) {
   const initialRef = React.useRef<HTMLInputElement>(null);
 
-  const parametros = useParams();
-
   const [updateReuniaoData, setUpdateReuniaoData] = useState<ReuniaoData>({
     assuntoReuniao: reuniao ? reuniao.assuntoReuniao : "",
     descricaoReuniao: reuniao ? reuniao.descricaoReuniao : "",
     inicioReuniao: reuniao ? reuniao.inicioReuniao : new Date().toISOString(),
     fimReuniao: reuniao ? reuniao.fimReuniao : new Date().toISOString(),
-    listaParticipantesObjetos: reuniao ? reuniao.listaParticipantesObjetos : [],
+    listaParticipantes: reuniao ? reuniao.listaParticipantes : [],
   });
 
   useEffect(() => {
-    if (parametros.idReuniao) {
-      getReuniao(parametros.idReuniao).then((resposta) =>
-        setUpdateReuniaoData(resposta.data)
-      );
-    }
+    if (reuniao) setUpdateReuniaoData(reuniao);
   }, [reuniao]);
 
   const atualizarReuniao = async () => {
     try {
-      if (reuniao)
-        await updateReuniao(reuniao.idReuniao!.toString(), updateReuniao);
-      onUpdate(updateReuniaoData);
-      onClose();
+      if (updateReuniaoData) {
+        const numeroReuniao = updateReuniaoData.idReuniao!.toString();
+        console.log(updateReuniaoData);
+
+        await updateReuniao(numeroReuniao, updateReuniaoData);
+
+        onUpdate(updateReuniaoData);
+        onClose();
+      }
     } catch (error) {
       console.error(
-        "Erro ao atualizar o Participante ",
-        reuniao?.idReuniao,
+        "Erro ao atualizar a Reuniao",
+        updateReuniaoData?.idReuniao,
         error
       );
     }
@@ -82,12 +80,24 @@ export default function CardConsulta({
                     ref={initialRef}
                     defaultValue={reuniao.assuntoReuniao}
                     placeholder="Assunto da Reunião"
+                    onChange={(event) => {
+                      setUpdateReuniaoData({
+                        ...updateReuniaoData,
+                        assuntoReuniao: event.target.value,
+                      });
+                    }}
                   />
                   <FormLabel>Descrição da Reunião</FormLabel>
                   <Input
                     ref={initialRef}
                     defaultValue={reuniao.descricaoReuniao}
                     placeholder="Descrição da Reunião"
+                    onChange={(event) => {
+                      setUpdateReuniaoData({
+                        ...updateReuniaoData,
+                        descricaoReuniao: event.target.value,
+                      });
+                    }}
                   />
                   <FormLabel>Inicio da Reunião</FormLabel>
                   <Input
@@ -95,8 +105,11 @@ export default function CardConsulta({
                     type="datetime-local"
                     defaultValue={imprimeDataInput(reuniao.inicioReuniao!)}
                     placeholder="Data da Reunião"
-                    onClick={() => {
-                      console.log(reuniao.inicioReuniao!);
+                    onChange={(event) => {
+                      setUpdateReuniaoData({
+                        ...updateReuniaoData,
+                        inicioReuniao: event.target.value,
+                      });
                     }}
                   />
                   <FormLabel>Fim da Reunião</FormLabel>
@@ -105,6 +118,12 @@ export default function CardConsulta({
                     type="datetime-local"
                     defaultValue={imprimeDataInput(reuniao.fimReuniao!)}
                     placeholder="Data da Reunião"
+                    onChange={(event) => {
+                      setUpdateReuniaoData({
+                        ...updateReuniaoData,
+                        fimReuniao: event.target.value,
+                      });
+                    }}
                   />
                 </FormControl>
               </Flex>
