@@ -1,12 +1,14 @@
 import {
   Button,
   Flex,
+  Link,
   Modal,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
@@ -65,51 +67,63 @@ export default function TabelaParticipante() {
 
   return (
     <Flex justify="center" marginY="1%">
-      <TableContainer>
-        <Table variant="simple">
-          <TableCaption>Tabela de Participantes</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>Nome do Participante</Th>
-              <Th>Email do Participante</Th>
-              <Th>Telefone do Participante</Th>
-              <Th>Alterar</Th>
-              <Th>Excluir</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {participante.map((participante, index) => (
-              <Tr key={index}>
-                <Td>{participante.nomeParticipante}</Td>
-                <Td>{participante.emailParticipante}</Td>
-                <Td>{participante.telefoneParticipante}</Td>
-                <Td>
-                  <Button
-                    colorScheme="blue"
-                    textColor="white"
-                    onClick={() => abrirModalConsultar(participante)}
-                  >
-                    Alterar
-                  </Button>
-                </Td>
-                <Td>
-                  <Button
-                    colorScheme="red"
-                    textColor="white"
-                    onClick={() => {
-                      deletarParticipante(
-                        participante.idParticipante!.toString()
-                      );
-                    }}
-                  >
-                    Excluir
-                  </Button>
-                </Td>
+      {participante.length > 0 ? (
+        <TableContainer>
+          <Table variant="simple">
+            <TableCaption>Tabela de Participantes</TableCaption>
+            <Thead>
+              <Tr>
+                <Th>Nome do Participante</Th>
+                <Th>Email do Participante</Th>
+                <Th>Telefone do Participante</Th>
+                <Th>Alterar</Th>
+                <Th>Excluir</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+            </Thead>
+            <Tbody>
+              {participante.map((participante, index) => (
+                <Tr key={index}>
+                  <Td>{participante.nomeParticipante}</Td>
+                  <Td>{participante.emailParticipante}</Td>
+                  <Td>{participante.telefoneParticipante}</Td>
+                  <Td>
+                    <Button
+                      colorScheme="blue"
+                      textColor="white"
+                      onClick={() => abrirModalConsultar(participante)}
+                    >
+                      Alterar
+                    </Button>
+                  </Td>
+                  <Td>
+                    <Button
+                      colorScheme="red"
+                      textColor="white"
+                      onClick={() => {
+                        deletarParticipante(
+                          participante.idParticipante!.toString()
+                        );
+                      }}
+                    >
+                      Excluir
+                    </Button>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Flex flexDir="column" justify="center" align="center">
+          <Text>Não há nenhuma reunião marcada no momento</Text>
+
+          <Link href="/reuniao" mt="2%">
+            <Button colorScheme="green" textColor="white">
+              Agendar Reunião
+            </Button>
+          </Link>
+        </Flex>
+      )}
       <Modal isOpen={isOpen} onClose={onClose}>
         {participanteSelecionado && (
           <CardParticipante
