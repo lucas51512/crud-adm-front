@@ -22,6 +22,8 @@ export default function FormularioReuniao() {
   const [reuniao, setReuniao] = useState<ReuniaoData>({
     assuntoReuniao: "",
     descricaoReuniao: "",
+    observacoes: "",
+    reuniaoDesmarcada: false,
     inicioReuniao: "",
     fimReuniao: "",
     listaParticipantes: [],
@@ -210,6 +212,18 @@ export default function FormularioReuniao() {
                   setParticipanteSelecionado(
                     event.map((participante) => participante.value)
                   );
+                }}
+              />
+            </Box>
+            <Box w="50%" ml="0.5%">
+              <FormLabel>Observações</FormLabel>
+              <Input
+                type="text"
+                onChange={(event) => {
+                  setReuniao({
+                    ...reuniao,
+                    observacoes: event.target.value,
+                  });
                 }}
               />
             </Box>

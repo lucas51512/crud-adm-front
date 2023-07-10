@@ -1,9 +1,8 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-import FormularioParticipante from "../components/FormularioParticipante";
-import TabelaParticipante from "../components/TabelaParticipantes";
+import FormularioReuniao from "../components/FormularioReuniao";
 
-export default function Participante() {
+export default function CadastrarReuniao() {
   return (
     <Grid
       templateAreas={`"navbar navbar navbar"
@@ -14,8 +13,7 @@ export default function Participante() {
         <Navbar />
       </GridItem>
       <GridItem area="menu">
-        <FormularioParticipante />
-        <TabelaParticipante />
+        <FormularioReuniao />
       </GridItem>
     </Grid>
   );

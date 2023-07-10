@@ -49,7 +49,7 @@ export default function TabelaReuniao() {
         const reunioes = await getAllReunioes();
         if (reunioes && reunioes.length > 0) {
           const reunioesMarcadas = reunioes.filter(
-            (reuniao: ReuniaoData) => reuniao.reuniaoDesmarcada == false
+            (reuniao: ReuniaoData) => reuniao.reuniaoDesmarcada == true
           );
           setReuniao(reunioesMarcadas);
         } else {
@@ -63,8 +63,8 @@ export default function TabelaReuniao() {
     buscarReunioes();
   }, []);
 
-  const desmarcarReuniao = (reuniao: ReuniaoData) => {
-    reuniao.reuniaoDesmarcada = true;
+  const marcarReuniao = (reuniao: ReuniaoData) => {
+    reuniao.reuniaoDesmarcada = false;
     console.log(reuniao);
   };
 
@@ -80,7 +80,7 @@ export default function TabelaReuniao() {
                 <Th>Data de Inicio</Th>
                 <Th>Data de Fim</Th>
                 <Th>Consultar</Th>
-                <Th>Desmarcar Reunião</Th>
+                <Th>Remarcar Reunião</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -102,11 +102,11 @@ export default function TabelaReuniao() {
                   </Td>
                   <Td>
                     <Button
-                      colorScheme="red"
+                      colorScheme="green"
                       textColor="white"
-                      onClick={() => desmarcarReuniao(reuniao)}
+                      onClick={() => marcarReuniao(reuniao)}
                     >
-                      Desmarcar Reunião
+                      Remarcar Reunião
                     </Button>
                   </Td>
                 </Tr>
@@ -116,11 +116,11 @@ export default function TabelaReuniao() {
         </TableContainer>
       ) : (
         <Flex flexDir="column" justify="center" align="center">
-          <Text>Não há nenhuma reunião marcada no momento</Text>
+          <Text>Não há nenhuma reunião desmarcada no momento</Text>
 
-          <Link href="/reuniao" mt="2%">
-            <Button colorScheme="green" textColor="white">
-              Agendar Reunião
+          <Link href="/" mt="2%">
+            <Button colorScheme="blue" textColor="white">
+              Reuniões Agendadas
             </Button>
           </Link>
         </Flex>

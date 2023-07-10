@@ -11,15 +11,18 @@ export default function Navbar() {
           <Link href="/">
             <Text pl="3">Reuniões Agendadas</Text>
           </Link>
+          <Link href="/reunioesDesmarcadas">
+            <Text pl="3">Reuniões Desmarcadas</Text>
+          </Link>
           <Link href="/reuniao">
             <Text pl="3">Agendar Reuniao</Text>
           </Link>
           <Link href="/participante">
             <Text pl="3">Cadastrar Participantes</Text>
           </Link>
-          {/*           <Link href="/">
-            <Text pl="3">Gerar Excel</Text>
-          </Link> */}
+          <Link href="/participantesCadastrados">
+            <Text pl="3">Participanres Cadastrados</Text>
+          </Link>
         </Flex>
       </GridItem>
     </Grid>

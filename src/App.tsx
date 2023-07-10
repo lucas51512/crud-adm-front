@@ -1,15 +1,22 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReunioesAgendadas from "./pages/ReunioesAgendadas";
-import Reuniao from "./pages/Reuniao";
-import Participante from "./pages/Participante";
+import CadastrarReuniao from "./pages/CadastrarReuniao";
+import CadastrarParticipante from "./pages/CadastrarParticipante";
+import ReunioesDesmarcadas from "./pages/ReunioesDesmarcadas";
+import ParticipantesCadastrados from "./pages/ParticipantesCadastrados";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<ReunioesAgendadas />} />
-        <Route path="/reuniao" element={<Reuniao />} />
-        <Route path="/participante" element={<Participante />} />
+        <Route path="/reunioesDesmarcadas" element={<ReunioesDesmarcadas />} />
+        <Route path="/reuniao" element={<CadastrarReuniao />} />
+        <Route path="/participante" element={<CadastrarParticipante />} />
+        <Route
+          path="/participantesCadastrados"
+          element={<ParticipantesCadastrados />}
+        />
       </Routes>
     </BrowserRouter>
   );

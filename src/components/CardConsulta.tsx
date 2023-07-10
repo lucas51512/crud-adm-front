@@ -35,6 +35,8 @@ export default function CardConsulta({
   const [updateReuniaoData, setUpdateReuniaoData] = useState<ReuniaoData>({
     assuntoReuniao: reuniao ? reuniao.assuntoReuniao : "",
     descricaoReuniao: reuniao ? reuniao.descricaoReuniao : "",
+    observacoes: reuniao ? reuniao.observacoes : "",
+    reuniaoDesmarcada: reuniao ? reuniao.reuniaoDesmarcada : false,
     inicioReuniao: reuniao ? reuniao.inicioReuniao : new Date().toISOString(),
     fimReuniao: reuniao ? reuniao.fimReuniao : new Date().toISOString(),
     listaParticipantes: reuniao ? reuniao.listaParticipantes : [],
