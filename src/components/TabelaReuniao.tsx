@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { ReuniaoData } from "../interfaces/ReuniaoData";
-import { getAllReunioes } from "../services/reuniaoService";
+import { getAllReunioes, updateReuniao } from "../services/reuniaoService";
 import { formatarData } from "../helpers/funcoes";
 import CardConsulta from "./CardConsulta";
 
@@ -66,6 +66,7 @@ export default function TabelaReuniao() {
   const desmarcarReuniao = (reuniao: ReuniaoData) => {
     reuniao.reuniaoDesmarcada = true;
     console.log(reuniao);
+    updateReuniao(reuniao.idReuniao!.toString(), reuniao);
   };
 
   return (
