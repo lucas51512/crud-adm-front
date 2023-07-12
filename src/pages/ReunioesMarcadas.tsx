@@ -2,7 +2,7 @@ import { Flex, Grid, GridItem, Text } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import TabelaReuniao from "../components/TabelaReuniao";
 
-export default function ReunioesAgendadas() {
+export default function ReunioesMarcadas() {
   return (
     <Grid
       templateAreas={`"navbar navbar navbar"

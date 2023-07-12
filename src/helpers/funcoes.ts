@@ -1,7 +1,3 @@
-declare interface Date {
-  toDatetimeLocal: () => string;
-}
-
 export const formatarData = (data: string) => {
   if (!data) {
     data = new Date().toString();
@@ -33,7 +29,6 @@ export function imprimeDataInput(data: string) {
     const DD = ten(dataConvertida.getDate());
     const HH = ten(dataConvertida.getHours());
     const II = ten(dataConvertida.getMinutes());
-    const SS = ten(dataConvertida.getSeconds());
     return YYYY + "-" + MM + "-" + DD + "T" + HH + ":" + II;
   }
 }

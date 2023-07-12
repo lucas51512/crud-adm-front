@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 import { ReuniaoData } from "../interfaces/ReuniaoData";
 import { getAllReunioes, updateReuniao } from "../services/reuniaoService";
 import { formatarData } from "../helpers/funcoes";
-import CardConsulta from "./CardConsulta";
+import CardReunioes from "./CardReunioes";
 
 export default function TabelaReuniao() {
   const [reuniao, setReuniao] = useState<ReuniaoData[]>([]);
@@ -129,7 +129,7 @@ export default function TabelaReuniao() {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         {reuniaoSelecionada && (
-          <CardConsulta
+          <CardReunioes
             isOpen={isOpen}
             reuniao={reuniaoSelecionada}
             onClose={onClose}

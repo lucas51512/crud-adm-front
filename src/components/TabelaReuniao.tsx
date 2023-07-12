@@ -18,7 +18,7 @@ import { useState, useEffect } from "react";
 import { ReuniaoData } from "../interfaces/ReuniaoData";
 import { getAllReunioes, updateReuniao } from "../services/reuniaoService";
 import { formatarData } from "../helpers/funcoes";
-import CardConsulta from "./CardConsulta";
+import CardReunioes from "./CardReunioes";
 
 export default function TabelaReuniao() {
   const [reuniao, setReuniao] = useState<ReuniaoData[]>([]);
@@ -53,7 +53,7 @@ export default function TabelaReuniao() {
           );
           setReuniao(reunioesMarcadas);
         } else {
-          alert("Não existem reuniões desmarcadas no momento");
+          alert("Não existem reuniões marcadas no momento");
         }
       } catch (error) {
         console.error("Erro ao obter as reuniões", error);
@@ -81,7 +81,7 @@ export default function TabelaReuniao() {
                 <Th>Data de Inicio</Th>
                 <Th>Data de Fim</Th>
                 <Th>Consultar</Th>
-                <Th>Desmarcar Reunião</Th>
+                <Th>Excluir Reunião</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -107,7 +107,7 @@ export default function TabelaReuniao() {
                       textColor="white"
                       onClick={() => desmarcarReuniao(reuniao)}
                     >
-                      Desmarcar Reunião
+                      Excluir Reunião
                     </Button>
                   </Td>
                 </Tr>
@@ -129,9 +129,9 @@ export default function TabelaReuniao() {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         {reuniaoSelecionada && (
-          <CardConsulta
+          <CardReunioes
             isOpen={isOpen}
-            reuniao={reuniaoSelecionada}
+            reuniaoPassada={reuniaoSelecionada}
             onClose={onClose}
             onUpdate={atualizarReuniao}
           />

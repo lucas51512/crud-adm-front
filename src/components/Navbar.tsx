@@ -9,13 +9,10 @@ export default function Navbar() {
         </Flex>
         <Flex>
           <Link href="/">
-            <Text pl="3">Reuniões Agendadas</Text>
-          </Link>
-          <Link href="/reunioesDesmarcadas">
-            <Text pl="3">Reuniões Desmarcadas</Text>
+            <Text pl="3">Reuniões Cadastradas</Text>
           </Link>
           <Link href="/reuniao">
-            <Text pl="3">Agendar Reuniao</Text>
+            <Text pl="3">Cadastrar Reuniao</Text>
           </Link>
           <Link href="/participante">
             <Text pl="3">Cadastrar Participantes</Text>

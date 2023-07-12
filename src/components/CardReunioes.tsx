@@ -16,21 +16,60 @@ import React, { useState, useEffect } from "react";
 import { ReuniaoData } from "../interfaces/ReuniaoData";
 import { updateReuniao } from "../services/reuniaoService";
 import { imprimeDataInput } from "../helpers/funcoes";
+import Select from "react-select";
+import { ParticipanteData } from "../interfaces/ParticipanteData";
+import { getAllParticipantes } from "../services/participanteService";
 
 interface CardConsutaProps {
   isOpen: boolean;
   onClose: () => void;
-  reuniao: ReuniaoData | null;
+  reuniaoPassada: ReuniaoData;
   onUpdate: (reuniaoAtualizada: ReuniaoData) => void;
 }
 
-export default function CardConsulta({
+export default function CardReunioes({
   isOpen,
   onClose,
-  reuniao,
+  reuniaoPassada,
   onUpdate,
 }: CardConsutaProps) {
   const initialRef = React.useRef<HTMLInputElement>(null);
+
+  const [reuniao, setReuniao] = useState<ReuniaoData>(reuniaoPassada);
+
+  const [participante, setParticipante] = useState<ParticipanteData[]>([]);
+
+  useEffect(() => {
+    async function buscarParticipantes() {
+      try {
+        await getAllParticipantes().then((participantes) =>
+          setParticipante(participantes)
+        );
+      } catch (error) {
+        console.error("Erro ao obter as reuniões", error);
+      }
+    }
+
+    buscarParticipantes();
+  }, []);
+
+  const nomeParticipantes = participante.map((participante) => {
+    return {
+      label: participante.nomeParticipante,
+      value: participante,
+    };
+  });
+
+  const [participanteSelecionado, setParticipanteSelecionado] = useState<
+    ParticipanteData[]
+  >([
+    {
+      idParticipante: 0,
+      nomeParticipante: "",
+      emailParticipante: "",
+      telefoneParticipante: "",
+    },
+  ]);
 
   const [updateReuniaoData, setUpdateReuniaoData] = useState<ReuniaoData>({
     assuntoReuniao: reuniao ? reuniao.assuntoReuniao : "",
@@ -41,6 +80,49 @@ export default function CardConsulta({
     fimReuniao: reuniao ? reuniao.fimReuniao : new Date().toISOString(),
     listaParticipantes: reuniao ? reuniao.listaParticipantes : [],
   });
+
+  useEffect(() => {
+    setParticipanteSelecionado(participante);
+  }, [participante]);
+
+  useEffect(() => {
+    async function criarListaParticipantes(
+      participanteSelecionado: ParticipanteData[] | ParticipanteData
+    ) {
+      let novoParticipante: ParticipanteData[];
+
+      if (participanteSelecionado instanceof Array) {
+        novoParticipante = participanteSelecionado.map(
+          (participante: ParticipanteData) => {
+            return {
+              idParticipante: participante.idParticipante,
+              nomeParticipante: participante.nomeParticipante,
+              emailParticipante: participante.emailParticipante,
+              telefoneParticipante: participante.telefoneParticipante,
+            };
+          }
+        );
+      } else {
+        novoParticipante = [
+          {
+            idParticipante: participanteSelecionado.idParticipante,
+            nomeParticipante: participanteSelecionado.nomeParticipante,
+            emailParticipante: participanteSelecionado.emailParticipante,
+            telefoneParticipante: participanteSelecionado.telefoneParticipante,
+          },
+        ];
+      }
+      setReuniao({
+        ...reuniao,
+        listaParticipantes: novoParticipante.map((participante) => {
+          return participante;
+        }),
+      });
+    }
+
+    criarListaParticipantes(participanteSelecionado);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [participanteSelecionado]);
 
   useEffect(() => {
     if (reuniao) setUpdateReuniaoData(reuniao);
@@ -68,7 +150,7 @@ export default function CardConsulta({
 
   return (
     <Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Reuniões</ModalHeader>
@@ -101,6 +183,18 @@ export default function CardConsulta({
                       });
                     }}
                   />
+                  <FormLabel>Observações da Reunião</FormLabel>
+                  <Input
+                    ref={initialRef}
+                    defaultValue={reuniao.observacoes}
+                    placeholder="Observações da Reunião"
+                    onChange={(event) => {
+                      setUpdateReuniaoData({
+                        ...updateReuniaoData,
+                        observacoes: event.target.value,
+                      });
+                    }}
+                  />
                   <FormLabel>Inicio da Reunião</FormLabel>
                   <Input
                     ref={initialRef}
@@ -125,6 +219,21 @@ export default function CardConsulta({
                         ...updateReuniaoData,
                         fimReuniao: event.target.value,
                       });
+                    }}
+                  />
+                  <FormLabel>Participantes Selecionados</FormLabel>
+                  <Select
+                    placeholder="Participantes Disponíveis"
+                    isMulti
+                    options={nomeParticipantes}
+                    defaultValue={reuniao.listaParticipantes.map(
+                      (participante) => ({
+                        value: participante,
+                        label: participante.nomeParticipante,
+                      })
+                    )}
+                    onChange={() => {
+                      console.log(reuniao.listaParticipantes);
                     }}
                   />
                 </FormControl>

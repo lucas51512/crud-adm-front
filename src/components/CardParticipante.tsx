@@ -27,7 +27,7 @@ interface CardConsutaProps {
   onUpdate: (participanteAtualizada: ParticipanteData) => void;
 }
 
-export default function CardConsulta({
+export default function CardReunioes({
   isOpen,
   onClose,
   participante,
@@ -71,7 +71,7 @@ export default function CardConsulta({
 
   return (
     <Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Participantes</ModalHeader>
