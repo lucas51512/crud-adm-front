@@ -63,14 +63,7 @@ export default function CardReunioes({
 
   const [participanteSelecionado, setParticipanteSelecionado] = useState<
     ParticipanteData[]
-  >([
-    {
-      idParticipante: 0,
-      nomeParticipante: "",
-      emailParticipante: "",
-      telefoneParticipante: "",
-    },
-  ]);
+  >(reuniao.listaParticipantes);
 
   const [updateReuniaoData, setUpdateReuniaoData] = useState<ReuniaoData>({
     assuntoReuniao: reuniao ? reuniao.assuntoReuniao : "",
@@ -81,10 +74,6 @@ export default function CardReunioes({
     fimReuniao: reuniao ? reuniao.fimReuniao : new Date().toISOString(),
     listaParticipantes: reuniao ? reuniao.listaParticipantes : [],
   });
-
-  useEffect(() => {
-    setParticipanteSelecionado(participante);
-  }, [participante]);
 
   useEffect(() => {
     async function criarListaParticipantes(
@@ -136,6 +125,24 @@ export default function CardReunioes({
         console.log(updateReuniaoData);
 
         await updateReuniao(numeroReuniao, updateReuniaoData);
+
+        onUpdate(updateReuniaoData);
+        onClose();
+      }
+    } catch (error) {
+      console.error(
+        "Erro ao atualizar a Reuniao",
+        updateReuniaoData?.idReuniao,
+        error
+      );
+    }
+  };
+
+  const testaReuniao = async () => {
+    try {
+      if (updateReuniaoData) {
+        const numeroReuniao = updateReuniaoData.idReuniao!.toString();
+        console.log(updateReuniaoData);
 
         onUpdate(updateReuniaoData);
         onClose();
@@ -235,9 +242,14 @@ export default function CardReunioes({
                       })
                     )}
                     onChange={(event) => {
-                      setParticipanteSelecionado(
-                        event.map((participante) => participante.data)
+                      const participantesSelecionados = event.map(
+                        (participante) => participante.data
                       );
+                      setParticipanteSelecionado(participantesSelecionados);
+                      setUpdateReuniaoData((estadoAnterior) => ({
+                        ...estadoAnterior,
+                        listaParticipantes: participantesSelecionados,
+                      }));
                     }}
                   />
                 </FormControl>
