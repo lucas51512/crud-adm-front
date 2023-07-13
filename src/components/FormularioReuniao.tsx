@@ -81,7 +81,8 @@ export default function FormularioReuniao() {
   const nomeParticipantes = participantes.map((participante) => {
     return {
       label: participante.nomeParticipante,
-      value: participante,
+      value: participante.idParticipante,
+      data: participante,
     };
   });
 
@@ -210,7 +211,7 @@ export default function FormularioReuniao() {
                 options={nomeParticipantes}
                 onChange={(event) => {
                   setParticipanteSelecionado(
-                    event.map((participante) => participante.value)
+                    event.map((participante) => participante.data)
                   );
                 }}
               />
