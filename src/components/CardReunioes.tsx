@@ -19,6 +19,7 @@ import { imprimeDataInput } from "../helpers/funcoes";
 import Select from "react-select";
 import { ParticipanteData } from "../interfaces/ParticipanteData";
 import { getAllParticipantes } from "../services/participanteService";
+import { useForm } from "react-hook-form";
 
 interface CardConsutaProps {
   isOpen: boolean;
@@ -38,6 +39,13 @@ export default function CardReunioes({
   const [reuniao, setReuniao] = useState<ReuniaoData>(reuniaoPassada);
 
   const [participante, setParticipante] = useState<ParticipanteData[]>([]);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     async function buscarParticipantes() {
@@ -138,24 +146,6 @@ export default function CardReunioes({
     }
   };
 
-  const testaReuniao = async () => {
-    try {
-      if (updateReuniaoData) {
-        const numeroReuniao = updateReuniaoData.idReuniao!.toString();
-        console.log(updateReuniaoData);
-
-        onUpdate(updateReuniaoData);
-        onClose();
-      }
-    } catch (error) {
-      console.error(
-        "Erro ao atualizar a Reuniao",
-        updateReuniaoData?.idReuniao,
-        error
-      );
-    }
-  };
-
   return (
     <Flex>
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -169,6 +159,7 @@ export default function CardReunioes({
                 <FormControl>
                   <FormLabel>Assunto da Reunião</FormLabel>
                   <Input
+                    {...register("assuntoReuniao", { required: true })}
                     ref={initialRef}
                     defaultValue={reuniao.assuntoReuniao}
                     placeholder="Assunto da Reunião"
@@ -179,8 +170,10 @@ export default function CardReunioes({
                       });
                     }}
                   />
+                  {errors.assuntoReuniao && "Assunto da Reunião é obrigatório"}
                   <FormLabel>Descrição da Reunião</FormLabel>
                   <Input
+                    {...register("descricaoReuniao", { required: true })}
                     ref={initialRef}
                     defaultValue={reuniao.descricaoReuniao}
                     placeholder="Descrição da Reunião"
@@ -191,8 +184,11 @@ export default function CardReunioes({
                       });
                     }}
                   />
+                  {errors.descricaoReuniao &&
+                    "Descrição da Reunião é obrigatório"}
                   <FormLabel>Observações da Reunião</FormLabel>
                   <Input
+                    {...register("observacoesReuniao")}
                     ref={initialRef}
                     defaultValue={reuniao.observacoes}
                     placeholder="Observações da Reunião"
@@ -205,6 +201,7 @@ export default function CardReunioes({
                   />
                   <FormLabel>Inicio da Reunião</FormLabel>
                   <Input
+                    {...register("inicioReuniao", { required: true })}
                     ref={initialRef}
                     type="datetime-local"
                     defaultValue={imprimeDataInput(reuniao.inicioReuniao!)}
@@ -216,8 +213,10 @@ export default function CardReunioes({
                       });
                     }}
                   />
+                  {errors.incioReuniao && "Inicio da Reunião é obrigatório"}
                   <FormLabel>Fim da Reunião</FormLabel>
                   <Input
+                    {...register("fimReuniao", { required: true })}
                     ref={initialRef}
                     type="datetime-local"
                     defaultValue={imprimeDataInput(reuniao.fimReuniao!)}
@@ -229,8 +228,10 @@ export default function CardReunioes({
                       });
                     }}
                   />
+                  {errors.fimReuniao && "Fim da Reunião é obrigatório"}
                   <FormLabel>Participantes Selecionados</FormLabel>
                   <Select
+                    {...register("participantes", { required: true })}
                     placeholder="Participantes Disponíveis"
                     isMulti
                     options={nomeParticipantes}
@@ -252,6 +253,7 @@ export default function CardReunioes({
                       }));
                     }}
                   />
+                  {errors.participantes && "Participantes são obrigatórios"}
                 </FormControl>
               </Flex>
             )}

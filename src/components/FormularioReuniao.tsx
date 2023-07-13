@@ -16,6 +16,7 @@ import { ReuniaoData } from "../interfaces/ReuniaoData";
 import { ParticipanteData } from "../interfaces/ParticipanteData";
 import { getAllParticipantes } from "../services/participanteService";
 import { createReuniao } from "../services/reuniaoService";
+import { useForm } from "react-hook-form";
 
 export default function FormularioReuniao() {
   const [participantes, setParticipantes] = useState<ParticipanteData[]>([]);
@@ -38,6 +39,13 @@ export default function FormularioReuniao() {
       telefoneParticipante: "",
     },
   ]);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
 
   const converterData = (dataString: string) => {
     const conversorData = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/;
@@ -150,8 +158,9 @@ export default function FormularioReuniao() {
         <FormControl>
           <Flex w="70vw">
             <Box w="50%" mr="0.5%">
-              <FormLabel>Nome da Reunião</FormLabel>
+              <FormLabel>Assunto da Reunião</FormLabel>
               <Input
+                {...register("assuntoReuniao", { required: true })}
                 type="text"
                 onChange={(event) => {
                   setReuniao({
@@ -160,10 +169,12 @@ export default function FormularioReuniao() {
                   });
                 }}
               />
+              {errors.assuntoReuniao && "Assunto da Reunião é obrigatório"}
             </Box>
             <Box w="50%" ml="0.5%">
               <FormLabel>Descrição da Reunião</FormLabel>
               <Input
+                {...register("descricaoReuniao", { required: true })}
                 type="text"
                 onChange={(event) => {
                   setReuniao({
@@ -172,12 +183,14 @@ export default function FormularioReuniao() {
                   });
                 }}
               />
+              {errors.descricaoReuniao && "Descrição da Reunião é obrigatório"}
             </Box>
           </Flex>
           <Flex w="70vw">
             <Box w="50%" mr="0.5%">
               <FormLabel>Inicio da Reunião</FormLabel>
               <Input
+                {...register("inicioReuniao", { required: true })}
                 type="datetime-local"
                 onChange={(event) => {
                   const dataConvertida = converterData(event.target.value);
@@ -187,10 +200,12 @@ export default function FormularioReuniao() {
                   });
                 }}
               />
+              {errors.incioReuniao && "Inicio da Reunião é obrigatório"}
             </Box>
             <Box w="50%" ml="0.5%">
               <FormLabel>Fim da Reunião</FormLabel>
               <Input
+                {...register("fimReuniao", { required: true })}
                 type="datetime-local"
                 onChange={(event) => {
                   const dataConvertida = converterData(event.target.value);
@@ -200,12 +215,14 @@ export default function FormularioReuniao() {
                   });
                 }}
               />
+              {errors.fimReuniao && "Fim da Reunião é obrigatório"}
             </Box>
           </Flex>
           <Flex w="70vw">
             <Box w="50%" mr="0.5%">
               <FormLabel>Selecionar Participantes</FormLabel>
               <Select
+                {...register("participantes", { required: true })}
                 placeholder="Participantes Disponíveis"
                 isMulti
                 options={nomeParticipantes}
@@ -215,10 +232,12 @@ export default function FormularioReuniao() {
                   );
                 }}
               />
+              {errors.participantes && "Participantes são obrigatórios"}
             </Box>
             <Box w="50%" ml="0.5%">
               <FormLabel>Observações</FormLabel>
               <Input
+                {...register("observacoesReuniao")}
                 type="text"
                 onChange={(event) => {
                   setReuniao({
