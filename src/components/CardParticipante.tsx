@@ -14,11 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { ParticipanteData } from "../interfaces/ParticipanteData";
-import { useParams } from "react-router";
-import {
-  getParticipante,
-  updateParticipante,
-} from "../services/participanteService";
+import { updateParticipante } from "../services/participanteService";
 
 interface CardConsutaProps {
   isOpen: boolean;

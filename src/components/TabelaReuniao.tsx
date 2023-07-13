@@ -52,8 +52,6 @@ export default function TabelaReuniao() {
             (reuniao: ReuniaoData) => reuniao.reuniaoDesmarcada == false
           );
           setReuniao(reunioesMarcadas);
-        } else {
-          alert("Não existem reuniões marcadas no momento");
         }
       } catch (error) {
         console.error("Erro ao obter as reuniões", error);

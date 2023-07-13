@@ -56,7 +56,8 @@ export default function CardReunioes({
   const nomeParticipantes = participante.map((participante) => {
     return {
       label: participante.nomeParticipante,
-      value: participante,
+      value: participante.idParticipante,
+      data: participante,
     };
   });
 
@@ -228,12 +229,15 @@ export default function CardReunioes({
                     options={nomeParticipantes}
                     defaultValue={reuniao.listaParticipantes.map(
                       (participante) => ({
-                        value: participante,
                         label: participante.nomeParticipante,
+                        value: participante.idParticipante,
+                        data: participante,
                       })
                     )}
-                    onChange={() => {
-                      console.log(reuniao.listaParticipantes);
+                    onChange={(event) => {
+                      setParticipanteSelecionado(
+                        event.map((participante) => participante.data)
+                      );
                     }}
                   />
                 </FormControl>
