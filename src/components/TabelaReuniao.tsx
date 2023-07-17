@@ -118,7 +118,7 @@ export default function TabelaReuniao() {
           <Text>Não há nenhuma reunião marcada no momento</Text>
 
           <Link href="/reuniao" mt="2%">
-            <Button colorScheme="green" textColor="white">
+            <Button colorScheme="teal" textColor="white">
               Agendar Reunião
             </Button>
           </Link>

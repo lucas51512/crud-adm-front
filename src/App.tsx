@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ReunioesMarcadas from "./pages/ReunioesMarcadas";
 import CadastrarReuniao from "./pages/CadastrarReuniao";
 import CadastrarParticipante from "./pages/CadastrarParticipante";
-import ReunioesDesmarcadas from "./pages/ReunioesDesmarcadas";
 import ParticipantesCadastrados from "./pages/ParticipantesCadastrados";
 
 function App() {
@@ -10,7 +9,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<ReunioesMarcadas />} />
-        <Route path="/reunioesDesmarcadas" element={<ReunioesDesmarcadas />} />
         <Route path="/reuniao" element={<CadastrarReuniao />} />
         <Route path="/participante" element={<CadastrarParticipante />} />
         <Route

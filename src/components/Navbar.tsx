@@ -18,7 +18,7 @@ export default function Navbar() {
             <Text pl="3">Cadastrar Participantes</Text>
           </Link>
           <Link href="/participantesCadastrados">
-            <Text pl="3">Participanres Cadastrados</Text>
+            <Text pl="3">Participantes Cadastrados</Text>
           </Link>
         </Flex>
       </GridItem>

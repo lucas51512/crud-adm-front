@@ -115,11 +115,11 @@ export default function TabelaParticipante() {
         </TableContainer>
       ) : (
         <Flex flexDir="column" justify="center" align="center">
-          <Text>Não há nenhuma reunião marcada no momento</Text>
+          <Text>Não há nenhum participante cadastrado no momento</Text>
 
-          <Link href="/reuniao" mt="2%">
-            <Button colorScheme="green" textColor="white">
-              Agendar Reunião
+          <Link href="/participante" mt="2%">
+            <Button colorScheme="teal" textColor="white">
+              Cadastrar Participantes
             </Button>
           </Link>
         </Flex>
