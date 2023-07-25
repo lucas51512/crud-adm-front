@@ -40,10 +40,15 @@ export default function CardReunioes({
 
   const [participante, setParticipante] = useState<ParticipanteData[]>([]);
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm();
+
   const {
     register,
-    handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 

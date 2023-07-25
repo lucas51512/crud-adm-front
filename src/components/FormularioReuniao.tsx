@@ -40,10 +40,16 @@ export default function FormularioReuniao() {
     },
   ]);
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm();
+
+
   const {
     register,
-    handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -57,6 +63,8 @@ export default function FormularioReuniao() {
     console.log(match);
     if (match != null) {
       const [wholeString, year, month, day, hours, minutes] = match;
+
+      console.log(wholeString);
 
       const novaData = new Date(
         parseInt(year),
