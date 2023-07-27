@@ -92,7 +92,7 @@ export default function TabelaReuniao() {
                   <Td>{formatarData(reuniao.fimReuniao!.toLocaleString())}</Td>
                   <Td>
                     <Button
-                      colorScheme="blue"
+                      colorScheme="teal"
                       textColor="white"
                       onClick={() => abrirModalConsultar(reuniao)}
                     >

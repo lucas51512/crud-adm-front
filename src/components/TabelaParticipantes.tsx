@@ -88,7 +88,7 @@ export default function TabelaParticipante() {
                   <Td>{participante.telefoneParticipante}</Td>
                   <Td>
                     <Button
-                      colorScheme="blue"
+                      colorScheme="orange"
                       textColor="white"
                       onClick={() => abrirModalConsultar(participante)}
                     >
