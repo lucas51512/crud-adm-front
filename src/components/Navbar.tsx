@@ -8,7 +8,7 @@ export default function Navbar() {
           <Text pl="3">Crud Reuniões</Text>
         </Flex>
         <Flex>
-          <Link href="/">
+          <Link href="/reunioesMarcadas">
             <Text pl="3">Reuniões Cadastradas</Text>
           </Link>
           <Link href="/reuniao">
