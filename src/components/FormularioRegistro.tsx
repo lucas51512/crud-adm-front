@@ -11,11 +11,13 @@ import {
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { UsuarioData } from "../interfaces/UsuartioData";
+import { registerUsuario } from "../services/authServices";
 
 const schema = yup.object({
   nomeUsuario: yup.string().required("Nome de usuário é obrigatório"),
-  email: yup.string().email("Email inválido").required("Email é obrigatório"),
-  password: yup.string().required("Senha é obrigatória"),
+  emailUsuario: yup.string().email("Email inválido").required("Email é obrigatório"),
+  senhaUsuario: yup.string().required("Senha é obrigatória"),
 });
 
 export default function FormularioRegistro() {
@@ -27,8 +29,8 @@ export default function FormularioRegistro() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: UsuarioData) => {
+    registerUsuario(data);
   };
 
   return (
@@ -43,13 +45,13 @@ export default function FormularioRegistro() {
             </Flex>
             <Flex w="35vw" flexDir="column" mt="5vh">
               <FormLabel>Endereço de Email</FormLabel>
-              <Input {...register("email")} type="email" />
-              {errors.email && <Text color='red'>{errors.email?.message}</Text>}
+              <Input {...register("emailUsuario")} type="email" />
+              {errors.emailUsuario && <Text color='red'>{errors.emailUsuario.message}</Text>}
             </Flex>
             <Flex w="35vw" flexDir="column" mt="5vh">
               <FormLabel>Senha</FormLabel>
-              <Input {...register("password")} type="password" />
-              {errors.password && <Text color='red'>{errors.password?.message}</Text>}
+              <Input {...register("senhaUsuario")} type="password" />
+              {errors.senhaUsuario && <Text color='red'>{errors.senhaUsuario.message}</Text>}
             </Flex>
             <Flex justify="center" align="center" mt="5vh">
               <Button colorScheme="teal" size="md" type="submit" ml="10px">
