@@ -1,4 +1,4 @@
-import { Flex, FormLabel, Input, FormControl, Grid, GridItem, Button } from "@chakra-ui/react";
+import { Flex, FormLabel, Input, FormControl, Grid, GridItem, Button, Link } from "@chakra-ui/react";
 
 export default function FormularioLogin() {
     return (
@@ -15,7 +15,9 @@ export default function FormularioLogin() {
                     </Flex>
                     <Flex justify='center' align='center' mt='5vh'>
                         <Button colorScheme="teal" size='md' mr='10px'>Login</Button>
-                        <Button colorScheme="teal" size='md' ml='10px'>Registrar-se</Button>
+                        <Link href="/registrar">
+                            <Button colorScheme="teal" size='md' ml='10px'>Registrar-se</Button>
+                        </Link>
                     </Flex>
                 </FormControl>
             </GridItem>
