@@ -1,6 +1,5 @@
 import { REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, LOGOUT, SET_MESSAGE } from "./types";
 import AuthService from "../services/authService";
-import { Dispatch } from "react";
 
 export const register = (nomeUsuario: string, email: string, password: string) => (dispatch: any) => {
     return AuthService.register(nomeUsuario, email, password).then(
