@@ -12,7 +12,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { UsuarioData } from "../interfaces/UsuartioData";
-import { registerUsuario } from "../services/authServices";
 
 const schema = yup.object({
   nomeUsuario: yup.string().required("Nome de usuário é obrigatório"),
@@ -30,7 +29,8 @@ export default function FormularioRegistro() {
   });
 
   const onSubmit = async (data: UsuarioData) => {
-    registerUsuario(data);
+    console.log(data);
+    
   };
 
   return (
@@ -41,7 +41,7 @@ export default function FormularioRegistro() {
             <Flex w="35vw" flexDir="column" mt="5vh">
               <FormLabel>Nome de Usuário</FormLabel>
               <Input {...register("nomeUsuario", {required: true})} type="text" />
-              {errors.nomeUsuario && <Text color='red'>{errors.nomeUsuario?.message}</Text>}
+              {errors.nomeUsuario && <Text color='red'>{errors.nomeUsuario.message}</Text>}
             </Flex>
             <Flex w="35vw" flexDir="column" mt="5vh">
               <FormLabel>Endereço de Email</FormLabel>
