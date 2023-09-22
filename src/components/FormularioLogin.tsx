@@ -14,6 +14,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { LoginData } from "../interfaces/LoginData";
+import { useDispatch, useSelector } from "react-redux";
 
 const schema = yup.object({
   emailUsuario: yup
@@ -34,8 +35,13 @@ export default function FormularioLogin() {
 
   const onSubmit = async (data: LoginData) => {
     console.log(data);
-    
   };
+
+  const { isLoggedin } = useSelector(state => state.auth);
+  const { message } = useSelector(state => state.message)
+
+
+  const dispatch = useDispatch(); 
 
   return (
     <Grid justifyContent="center" alignContent="center">
