@@ -4,6 +4,6 @@ export interface ParticipanteData {
   idParticipante?: number;
   nomeParticipante: string;
   emailParticipante: string;
-  telefoneParticipante: string;
+  telefoneParticipante?: string;
   reuniao?: ReuniaoData;
 }

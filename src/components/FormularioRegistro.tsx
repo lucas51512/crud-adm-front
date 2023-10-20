@@ -7,11 +7,13 @@ import {
   GridItem,
   Button,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { UsuarioData } from "../interfaces/UsuartioData";
+import { createUsuario } from "../services/usuarioService";
 
 const schema = yup.object({
   nomeUsuario: yup.string().required("Nome de usuário é obrigatório"),
@@ -24,12 +26,36 @@ export default function FormularioRegistro() {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const toast = useToast()
+
   const onSubmit = async (data: UsuarioData) => {
     console.log(data);
+
+    try {
+      createUsuario(data);
+
+    } catch (error) {
+      console.log("Erro ao criar a reunião", error)
+    }
+
+    reset({
+      nomeUsuario: "",
+      emailUsuario: "",
+      senhaUsuario: ""
+    });
+
+    toast({
+      title: 'Conta criada com Sucesso!',
+      description: 'Nós estamos criando a sua conta para você.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true
+    })
     
   };
 
